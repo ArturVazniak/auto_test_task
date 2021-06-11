@@ -2,11 +2,15 @@ package by.auto.artur.controller;
 
 import by.auto.artur.entity.Advertisement;
 import by.auto.artur.entity.User;
+import by.auto.artur.exceptions.NoSuchAdvertisementException;
+import by.auto.artur.exceptions.NoSuchUserException;
 import by.auto.artur.service.AdvertisementService;
 import by.auto.artur.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -40,6 +44,11 @@ public class HomeController {
     @GetMapping("/advertisements/{id}")
     public Advertisement getAdvertisement(@PathVariable long id){
 
+        Advertisement advertisement = advertisementService.getAdvertisement(id);
+        if(advertisement == null){
+            throw new NoSuchAdvertisementException("No advertisement with ID : "
+                    + id + " in database");
+        }
        return advertisementService.getAdvertisement(id);
     }
 
@@ -72,13 +81,21 @@ public class HomeController {
     public void deleteUser(@PathVariable String id){
 
         long longId = Integer.parseInt(id);
-        userService.deleteUser(longId);
+        User user = userService.getUser(longId);
 
+        if(user == null){
+            throw new NoSuchUserException("NO user with ID : " + longId + " in database");
+        }
+        userService.deleteUser(longId);
     }
 
     @GetMapping("/users/username/{name}")
     public User ByUsername(@PathVariable String name){
 
+        User user = userService.findUserByUsername(name);
+        if(user == null){
+            throw new NoSuchUserException("NO user with Name : " + name + " in database");
+        }
         return userService.findUserByUsername(name);
     }
 
@@ -86,13 +103,20 @@ public class HomeController {
     public User UserById(@PathVariable String id){
 
         long longId = Integer.parseInt(id);
-        return userService.getUser(longId);
+        User user = userService.getUser(longId);
+
+        if(user == null){
+            throw new NoSuchUserException("NO user with ID : " + longId + " in database");
+        }
+         return user;
     }
 
     @PostMapping("/users")
-    public void saveUser(@RequestBody User user){
+    public ResponseEntity<String> registrationUser(@Valid @RequestBody User user){
 
         userService.saveUser(user);
+
+        return ResponseEntity.ok("User is valid");
     }
 
     @PutMapping("/users")
