@@ -3,6 +3,13 @@ package by.auto.artur;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ *
+ *
+ *
+ *
+ *@Author ArturVazniak
+ */
 
 @SpringBootApplication
 public class AutoTestTaskApplication {

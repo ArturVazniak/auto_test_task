@@ -4,13 +4,26 @@ import by.auto.artur.entity.Advertisement;
 
 import java.util.List;
 
+/**
+ *
+ *
+ *
+ *
+ *@Author ArturVazniak
+ */
+
 public interface AdvertisementService {
 
-    public List<Advertisement> getAllAdvertisements();
+     List<Advertisement> getAllAdvertisement();
 
-    public void saveAdvertisement(Advertisement advertisement);
+     void saveAdvertisement(Advertisement advertisement);
 
-    public  Advertisement getAdvertisement(int id);
+     Advertisement getAdvertisement(long id);
 
-    public void deleteAdvertisement(int id);
+     void deleteAdvertisement(long id);
+
+     List<Advertisement> filterByYear(int year);
+
+     List<Advertisement> filterByCarModel(String model);
+
 }
