@@ -19,20 +19,13 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler
-    public ResponseEntity<IncorreсtInfo> handleExceptionUser(NoSuchUserException exception){
+    public ResponseEntity<IncorreсtInfo> handleExceptionContent(NoSuchContentException exception){
 
         IncorreсtInfo incorreсtInfo = new IncorreсtInfo();
         incorreсtInfo.setInfo(exception.getMessage());
         return new ResponseEntity<>(incorreсtInfo, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<IncorreсtInfo> handleExceptionAdvertisement(NoSuchAdvertisementException exception){
-
-        IncorreсtInfo incorreсtInfo = new IncorreсtInfo();
-        incorreсtInfo.setInfo(exception.getMessage());
-        return new ResponseEntity<>(incorreсtInfo, HttpStatus.NOT_FOUND);
-    }
 
     @ExceptionHandler
     public ResponseEntity<IncorreсtInfo> handleException(Exception exception){

@@ -2,8 +2,7 @@ package by.auto.artur.controller;
 
 import by.auto.artur.entity.Advertisement;
 import by.auto.artur.entity.User;
-import by.auto.artur.exceptions.NoSuchAdvertisementException;
-import by.auto.artur.exceptions.NoSuchUserException;
+import by.auto.artur.exceptions.NoSuchContentException;
 import by.auto.artur.service.AdvertisementService;
 import by.auto.artur.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +41,16 @@ public class HomeController {
     }
 
     @GetMapping("/advertisements/{id}")
-    public Advertisement getAdvertisement(@PathVariable long id){
+    public Advertisement getAdvertisement(@PathVariable String id){
 
-        Advertisement advertisement = advertisementService.getAdvertisement(id);
+        long longId = Integer.parseInt(id);
+
+        Advertisement advertisement = advertisementService.getAdvertisement(longId);
         if(advertisement == null){
-            throw new NoSuchAdvertisementException("No advertisement with ID : "
+            throw new NoSuchContentException("No advertisement with ID : "
                     + id + " in database");
         }
-       return advertisementService.getAdvertisement(id);
+       return advertisementService.getAdvertisement(longId);
     }
 
     @PostMapping("/advertisements")
@@ -84,7 +85,7 @@ public class HomeController {
         User user = userService.getUser(longId);
 
         if(user == null){
-            throw new NoSuchUserException("NO user with ID : " + longId + " in database");
+            throw new NoSuchContentException("NO user with ID : " + longId + " in database");
         }
         userService.deleteUser(longId);
     }
@@ -94,7 +95,7 @@ public class HomeController {
 
         User user = userService.findUserByUsername(name);
         if(user == null){
-            throw new NoSuchUserException("NO user with Name : " + name + " in database");
+            throw new NoSuchContentException("NO user with Name : " + name + " in database");
         }
         return userService.findUserByUsername(name);
     }
@@ -106,7 +107,7 @@ public class HomeController {
         User user = userService.getUser(longId);
 
         if(user == null){
-            throw new NoSuchUserException("NO user with ID : " + longId + " in database");
+            throw new NoSuchContentException("NO user with ID : " + longId + " in database");
         }
          return user;
     }

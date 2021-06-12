@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * added check for exceptions and log-files (lombok)
+ * added check for exceptions and log (lombok)
  *
  *
  *@Author ArturVazniak
@@ -33,7 +33,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     public List<Advertisement> getAllAdvertisement() {
 
         List<Advertisement> advertisements = repository.findAll();
-        log.info("IN getAllUsers : {} users found", advertisements.size());
+        log.info("IN getAllUsers : {} advertisements found", advertisements.size());
         return advertisements;
     }
 
@@ -73,8 +73,9 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
         List<Advertisement> list = repository.findAdvertisementByYear(year);
 
-        if(list == null){
+        if(list.isEmpty()){
             log.warn("IN filterByYear advertisements with year: {} not found", year);
+            return null;
         }
         log.info("IN filterByYear advertisements with year: {} successfully found", year);
         return list;
@@ -84,10 +85,12 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     public List<Advertisement> filterByCarModel(String model) {
 
         List<Advertisement> list = repository.findAdvertisementByCarModel(model);
-        if(list == null){
+        if(list.isEmpty()){
             log.warn("IN filterByCarModel advertisements with model of car: {} not found", model);
+            return null;
         }
-        log.info("IN filterByCarModel advertisements with model of car: {} successfully found", model);
-        return list;
+            log.info("IN filterByCarModel advertisements with model of car: {} successfully found", model);
+            return list;
+
     }
 }

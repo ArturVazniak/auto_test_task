@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * added check for exceptions and log-files (lombok)
+ * added check for exceptions and log (lombok)
  *
  *
  *@Author ArturVazniak
@@ -74,6 +74,7 @@ public class UserServiceImpl implements UserService {
 
         if(user == null){
             log.warn("IN findUserByUsername user not found by username: {}", username);
+            return null;
         }
         log.info("IN findUserByUsername user {} found by username: {}", user, username);
         return user;
