@@ -23,6 +23,9 @@ CREATE TABLE advertisements
     author_id           BIGINT,
     car_model           VARCHAR(100)            NOT NULL,
     year                INT                     NOT NULL,
+    price               DOUBLE PRECISION,
+    deleted             BOOLEAN                 NOT NULL          DEFAULT FALSE,
+    date                DATE                    DEFAULT           CURRENT_DATE,
 
         FOREIGN KEY(author_id) REFERENCES users_auto(id)
 );

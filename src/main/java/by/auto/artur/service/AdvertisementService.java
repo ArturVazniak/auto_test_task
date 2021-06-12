@@ -1,6 +1,7 @@
 package by.auto.artur.service;
 
 import by.auto.artur.entity.Advertisement;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 public interface AdvertisementService {
 
-     List<Advertisement> getAllAdvertisement();
+     List<Advertisement> getAllAdvertisement(boolean isDeleted);
 
      void saveAdvertisement(Advertisement advertisement);
 
@@ -25,5 +26,11 @@ public interface AdvertisementService {
      List<Advertisement> filterByYear(int year);
 
      List<Advertisement> filterByCarModel(String model);
+
+     List<Advertisement> findAdvertisementByPrice(int pageNo, int pageSize);
+
+     List<Advertisement> findAllByCarModel(int pageNo, int pageSize);
+
+     List<Advertisement> findAllByYear(int pageNo, int pageSize);
 
 }

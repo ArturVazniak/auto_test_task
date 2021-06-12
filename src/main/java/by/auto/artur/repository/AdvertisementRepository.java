@@ -15,6 +15,8 @@ import java.util.List;
 
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
 
-    public List<Advertisement> findAdvertisementByYear(int year);
-    public List<Advertisement> findAdvertisementByCarModel(String model);
+    List<Advertisement> findAdvertisementByYear(int year);
+    List<Advertisement> findAdvertisementByCarModel(String model);
+
+
 }

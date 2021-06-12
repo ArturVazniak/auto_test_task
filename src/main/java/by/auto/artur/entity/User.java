@@ -30,19 +30,19 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Size(min = 5, message = "username must be 5 symbols")
+    @Size(min = 5, message = "\n" + "username must be at least 5 characters long")
     @NotBlank(message = "Username is mandatory")
     @Column(name = "name")
     private String username;
 
-    @Size(min = 8, message = "password must be 8 symbols")
+    @Size(min = 8, message = "password must be at least 8 characters long")
     @Pattern(regexp = "[a-zA-Z0-9_\\-]+", message = "Should not contain only numbers")
-    @NotBlank(message = "Username is mandatory")
+    @NotBlank(message = "Password is mandatory")
     @Column(name = "password")
     private String password;
 
     @Email
-    @NotBlank(message = "Username is mandatory")
+    @NotBlank(message = "Email is mandatory")
     @Column(name = "email")
     private String email;
 

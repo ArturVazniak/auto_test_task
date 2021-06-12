@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-
     @ExceptionHandler
     public ResponseEntity<IncorreсtInfo> handleExceptionContent(NoSuchContentException exception){
 
@@ -39,7 +38,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<IncorreсtInfo> handleValidationExceptions(MethodArgumentNotValidException exception){
 
         IncorreсtInfo incorreсtInfo = new IncorreсtInfo();
-        incorreсtInfo.setInfo("The form is not valid");
+        incorreсtInfo.setInfo(exception.getMessage());
         return new ResponseEntity<>(incorreсtInfo, HttpStatus.BAD_REQUEST);
     }
 
