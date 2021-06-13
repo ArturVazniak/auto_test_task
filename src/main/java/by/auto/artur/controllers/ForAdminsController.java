@@ -1,13 +1,13 @@
 package by.auto.artur.controllers;
 
+import by.auto.artur.entity.Advertisement;
 import by.auto.artur.entity.User;
 import by.auto.artur.exceptions.NoSuchContentException;
+import by.auto.artur.service.AdvertisementService;
 import by.auto.artur.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -19,14 +19,24 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/user")
-public class UserController {
+@RequestMapping("/api/admin")
+public class ForAdminsController {
 
+    private final AdvertisementService advertisementService;
     private final UserService userService;
 
+
     @Autowired
-    public UserController(UserService userService) {
+    public ForAdminsController(AdvertisementService advertisementService, UserService userService) {
         this.userService = userService;
+        this.advertisementService = advertisementService;
+
+    }
+
+    @GetMapping("/advertisements/role/{role}")
+    public List<Advertisement> allAdvertisements(@PathVariable boolean role){
+
+        return advertisementService.getAllAdvertisement(role);
     }
 
     @GetMapping("/users")
@@ -69,19 +79,4 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<String> registrationUser(@Valid @RequestBody User user){
-
-        userService.saveUser(user);
-
-        return ResponseEntity.ok("User is valid");
-    }
-
-    @PutMapping("/users")
-    public ResponseEntity<String> updateUser(@Valid @RequestBody User user){
-
-        userService.saveUser(user);
-
-        return ResponseEntity.ok("User is valid");
-    }
 }

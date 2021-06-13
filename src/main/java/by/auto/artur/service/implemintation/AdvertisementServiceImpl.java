@@ -38,7 +38,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         this.entityManager = entityManager;
     }
 
-    //Deprecation method
     @Override
     public List<Advertisement> getAllAdvertisement(boolean isDeleted) {
         Session session = entityManager.unwrap(Session.class);
@@ -71,7 +70,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.info("IN getAdvertisement advertisement: {} found by id: {}", advertisement, id);
         return advertisement;
     }
-//fixed
+
     @Override
     public void deleteAdvertisement(long id) {
         Advertisement advertisement = repository.findById(id).orElse(null);

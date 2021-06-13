@@ -7,12 +7,9 @@ CREATE TABLE roles
 CREATE TABLE users_auto
 (
     id                  BIGSERIAL               PRIMARY KEY,
-    name                VARCHAR(50)             NOT NULL,
-    password            VARCHAR(50)             NOT NULL,
-    role                INT                     NOT NULL,
-    email               VARCHAR(50)             NOT NULL,
-
-        FOREIGN KEY(role) REFERENCES roles(id)
+    name                VARCHAR(50)             NOT NULL                 UNIQUE,
+    password            VARCHAR(255)            NOT NULL,
+    email               VARCHAR(50)             NOT NULL                 UNIQUE
 );
 
 CREATE TABLE advertisements
@@ -27,5 +24,16 @@ CREATE TABLE advertisements
     deleted             BOOLEAN                 NOT NULL          DEFAULT FALSE,
     date                DATE                    DEFAULT           CURRENT_DATE,
 
-        FOREIGN KEY(author_id) REFERENCES users_auto(id)
+    FOREIGN KEY(author_id) REFERENCES users_auto(id)
+);
+
+CREATE TABLE users_roles
+(
+    user_id             BIGINT                   NOT NULL,
+    role_id             INT                      NOT NULL,
+
+    PRIMARY KEY(user_id, role_id),
+
+    FOREIGN KEY(user_id) REFERENCES users_auto(id),
+    FOREIGN KEY(role_id) REFERENCES roles(id)
 );

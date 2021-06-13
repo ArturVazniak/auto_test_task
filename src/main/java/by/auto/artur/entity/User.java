@@ -8,12 +8,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.List;
 
 /**
  *
- * Uni-directional associations
- * Relationships between tables : users (OneToMany) - advertisements | user (OneToOne) - roles
+ *
+ *
  *
  *@Author ArturVazniak
  */
@@ -50,8 +51,10 @@ public class User {
     @JoinColumn(name = "author_id")
     private List<Advertisement> list;
 
-    @OneToOne
-    @JoinColumn(name = "role")
-    private Role roles;
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
 }

@@ -1,7 +1,6 @@
 package by.auto.artur.service;
 
 import by.auto.artur.entity.Advertisement;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
