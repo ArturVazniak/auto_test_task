@@ -58,7 +58,7 @@ public class Advertisement {
     private double price;
 
     @Column(name = "date")
-    private Date dateCreateAdvertisement;
+    private Date dateCreatedAdvertisement;
 
     @Column(name = "deleted")
     private boolean deleted = Boolean.FALSE;
