@@ -70,24 +70,29 @@ public class ForAllVisitorsController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> registrationUser(@Valid @RequestBody UserDto userDto){
-       User user = userService.saveUser(userMapper.DtoFromUser(userDto));
+    public ResponseEntity<User> registrationUser(@Valid @RequestBody UserDto userDto) {
+        User user = userService.saveUser(userMapper.DtoFromUser(userDto));
 
-        return new ResponseEntity<>(userService.saveUser(userMapper.DtoFromUser(userDto)),HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.saveUser(userMapper.DtoFromUser(userDto)), HttpStatus.CREATED);
+
+
     }
+
+        //---------------------------------------- Pagination + Filter ---------------------------------------------------------------------------------
+
 
     @GetMapping("/advertisements/filter")
     public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByPrice(@RequestParam(defaultValue = "2400.33") double price,
                                                                                @RequestParam(required = false, defaultValue = "0") int page,
                                                                                @RequestParam(required = false,defaultValue = "3") int size,
-                                                                               @RequestParam(required = false,defaultValue = "id") String field,
-                                                                               @RequestParam(required = false,defaultValue = "true") boolean sort){
+                                                                               @RequestParam(required = false,defaultValue = "id") String filterField,
+                                                                               @RequestParam(required = false,defaultValue = "true") boolean sortField){
         Pageable paging= null;
 
-        if(sort == true){
-             paging = PageRequest.of(page, size, Sort.by(field).descending());
+        if(sortField == true){
+             paging = PageRequest.of(page, size, Sort.by(filterField).descending());
         }else {
-            paging = PageRequest.of(page, size, Sort.by(field).ascending());
+            paging = PageRequest.of(page, size, Sort.by(filterField).ascending());
         }
 
          return new ResponseEntity<>(advertisementMapper.advertisementListToDto(
@@ -98,14 +103,14 @@ public class ForAllVisitorsController {
     public ResponseEntity<List<AdvertisementDto>> getAdvertisementSortCarModel(@RequestParam(defaultValue = "Mazda") String model,
                                                                            @RequestParam(required = false, defaultValue = "0") int page,
                                                                            @RequestParam(required = false,defaultValue = "3") int size,
-                                                                           @RequestParam(required = false,defaultValue = "id") String field,
-                                                                           @RequestParam(required = false,defaultValue = "true") boolean sort){
+                                                                           @RequestParam(required = false,defaultValue = "id") String filterField,
+                                                                           @RequestParam(required = false,defaultValue = "true") boolean sortField){
         Pageable paging = null;
 
-        if(sort == true) {
-            paging = PageRequest.of(page, size, Sort.by(field).descending());
+        if(sortField == true) {
+            paging = PageRequest.of(page, size, Sort.by(filterField).descending());
         }else {
-            paging = PageRequest.of(page, size, Sort.by(field).ascending());
+            paging = PageRequest.of(page, size, Sort.by(filterField).ascending());
         }
 
         return new ResponseEntity<>(advertisementMapper.advertisementListToDto(
@@ -116,14 +121,14 @@ public class ForAllVisitorsController {
     public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByYear(@RequestParam(defaultValue = "Mazda") int year,
                                                                           @RequestParam(required = false, defaultValue = "0") int page,
                                                                           @RequestParam(required = false,defaultValue = "3") int size,
-                                                                          @RequestParam(required = false,defaultValue = "id") String field,
-                                                                          @RequestParam(required = false,defaultValue = "true") boolean sort) {
+                                                                          @RequestParam(required = false,defaultValue = "id") String filterField,
+                                                                          @RequestParam(required = false,defaultValue = "true") boolean sortField) {
         Pageable paging = null;
 
-        if(sort == true) {
-             paging = PageRequest.of(page, size, Sort.by(field).descending());
+        if(sortField == true) {
+             paging = PageRequest.of(page, size, Sort.by(filterField).descending());
         }else {
-            paging = PageRequest.of(page, size, Sort.by(field).ascending());
+            paging = PageRequest.of(page, size, Sort.by(filterField).ascending());
         }
 
         return new ResponseEntity<>(advertisementMapper.advertisementListToDto(
