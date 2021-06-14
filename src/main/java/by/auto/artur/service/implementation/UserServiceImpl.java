@@ -28,18 +28,16 @@ public class UserServiceImpl implements UserService {
         this.repository = repository;
     }
 
-
     @Override
     public List<User> getAllUsers() {
-
         List<User> users = repository.findAll();
         log.info("IN getAllUsers : {} users found", users.size());
+
         return users;
     }
 
     @Override
     public void saveUser(User user) {
-
         log.info("IN saveUser user: {} successfully registered", user.getUsername());
         repository.save(user);
     }
@@ -69,7 +67,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUsername(String username) {
-
         User user = repository.findUserByUsername(username);
 
         if(user == null){
@@ -79,6 +76,4 @@ public class UserServiceImpl implements UserService {
         log.info("IN findUserByUsername user {} found by username: {}", user, username);
         return user;
     }
-
-
 }

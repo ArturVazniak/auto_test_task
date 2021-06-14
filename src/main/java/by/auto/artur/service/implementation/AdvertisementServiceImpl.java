@@ -33,7 +33,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Autowired
     public AdvertisementServiceImpl(AdvertisementRepository repository, EntityManager entityManager) {
-
         this.repository = repository;
         this.entityManager = entityManager;
     }
@@ -53,14 +52,12 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public void saveAdvertisement(Advertisement advertisement) {
-
         repository.save(advertisement);
         log.info("IN saveAdvertisement - advertisement successfully save");
     }
 
     @Override
     public Advertisement getAdvertisement(long id) {
-
         Advertisement advertisement = repository.findById(id).orElse(null);
 
         if (advertisement == null) {
@@ -85,7 +82,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public List<Advertisement> filterByYear(int year) {
-
         List<Advertisement> list = repository.findAdvertisementByYear(year);
 
         if (list.isEmpty()) {
@@ -99,8 +95,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public List<Advertisement> filterByCarModel(String model) {
-
         List<Advertisement> list = repository.findAdvertisementByCarModel(model);
+
         if (list.isEmpty()) {
             log.warn("IN filterByCarModel advertisements with model of car: {} not found", model);
             return null;
@@ -112,7 +108,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public List<Advertisement> findAdvertisementByPrice(int pageNo, int pageSize) {
-
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("price").descending());
         Page<Advertisement> pagedResult = repository.findAll(paging);
 
@@ -141,6 +136,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     public List<Advertisement> findAllByYear(int pageNo, int pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("year").descending());
         Page<Advertisement> pagedResult = repository.findAll(paging);
+
         if(pagedResult.isEmpty()){
             log.warn("IN findAllByYear the page : {} does not exist", pageNo);
             return null;
