@@ -1,7 +1,11 @@
 package by.auto.artur.service;
 
 import by.auto.artur.entity.Advertisement;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,14 +26,10 @@ public interface AdvertisementService {
 
      void deleteAdvertisement(long id);
 
-     List<Advertisement> filterByYear(int year);
+     List<Advertisement> findByYear(int year, Pageable pageable);
 
-     List<Advertisement> filterByCarModel(String model);
+     List<Advertisement> findByCarModel(String model, Pageable pageable);
 
-     List<Advertisement> findAdvertisementByPrice(int pageNo, int pageSize);
-
-     List<Advertisement> findAllByCarModel(int pageNo, int pageSize);
-
-     List<Advertisement> findAllByYear(int pageNo, int pageSize);
+     List<Advertisement> findByPrice(double price, Pageable pageable);
 
 }

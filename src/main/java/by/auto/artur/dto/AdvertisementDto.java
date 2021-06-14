@@ -1,5 +1,6 @@
 package by.auto.artur.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.Id;
@@ -24,5 +25,6 @@ public class AdvertisementDto {
     private String carModel;
     private int year;
     private double price;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date creationDate;
 }

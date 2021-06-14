@@ -7,13 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.awt.geom.AffineTransform;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,7 +42,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         Session session = entityManager.unwrap(Session.class);
         Filter filter = session.enableFilter("deletedAdvertisementFilter");
         filter.setParameter("isDeleted", isDeleted);
-        List<Advertisement> advertisements =  repository.findAll();
+        List<Advertisement> advertisements = repository.findAll();
         session.disableFilter("deletedAdvertisementFilter");
 
         log.info("IN getAllUsers : {} advertisements found", advertisements.size());
@@ -79,8 +79,44 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.warn("IN deleteAdvertisement advertisement with id: {} not found", id);
     }
 
+    @Override
+    public List<Advertisement> findByYear(int year, Pageable pageable) {
+        List<Advertisement> advertisements = repository.findByYear(year, pageable);
+
+        if (!advertisements.isEmpty()) {
+            log.info("IN findByYear advertisements : {} successfully found", advertisements.size());
+            return advertisements;
+        }
+        log.warn("IN findByYear advertisements : {} not found", advertisements.size());
+        return null;
+    }
 
     @Override
+    public List<Advertisement> findByCarModel(String model, Pageable pageable) {
+        List<Advertisement> advertisements= repository.findByCarModel(model,pageable);
+
+        if (!advertisements.isEmpty()) {
+            log.info("IN findByCarModel advertisements : {} successfully found", advertisements.size());
+            return advertisements;
+        }
+        log.warn("IN findByCarModel advertisements : {} not found", advertisements.size());
+        return null;
+    }
+
+    @Override
+    public List<Advertisement> findByPrice(double price, Pageable pageable) {
+        List<Advertisement> advertisements = repository.findByPrice(price, pageable);
+
+        if (!advertisements.isEmpty()) {
+            log.info("IN findByPrice advertisements : {} successfully found", advertisements.size());
+            return advertisements;
+        }
+        log.warn("IN findByPrice advertisements : {} not found", advertisements.size());
+        return null;
+    }
+
+}
+ /*   @Override
     public List<Advertisement> filterByYear(int year) {
         List<Advertisement> list = repository.findAdvertisementByYear(year);
 
@@ -91,9 +127,9 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.info("IN filterByYear advertisements with year: {} successfully found", year);
         return list;
     }
+*/
 
-
-    @Override
+  /*  @Override
     public List<Advertisement> filterByCarModel(String model) {
         List<Advertisement> list = repository.findAdvertisementByCarModel(model);
 
@@ -105,9 +141,9 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         return list;
 
     }
+*/
 
-    @Override
-    public List<Advertisement> findAdvertisementByPrice(int pageNo, int pageSize) {
+   /* public List<Advertisement> findAdvertisementByPrice(int pageNo, int pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("price").descending());
         Page<Advertisement> pagedResult = repository.findAll(paging);
 
@@ -119,7 +155,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         return pagedResult.toList();
     }
 
-    @Override
+
     public List<Advertisement> findAllByCarModel(int pageNo, int pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("carModel").ascending());
         Page<Advertisement> pagedResult = repository.findAll(paging);
@@ -132,7 +168,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         return pagedResult.toList();
     }
 
-    @Override
+
     public List<Advertisement> findAllByYear(int pageNo, int pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("year").descending());
         Page<Advertisement> pagedResult = repository.findAll(paging);
@@ -143,5 +179,4 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         }
         log.warn("IN findAllByYear the page : {} exist", pageNo);
         return pagedResult.toList();
-    }
-}
+    }*/

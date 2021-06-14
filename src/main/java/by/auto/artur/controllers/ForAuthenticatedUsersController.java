@@ -70,9 +70,8 @@ public class ForAuthenticatedUsersController {
     }
 
     @DeleteMapping("/advertisements/{id}")
-    public ResponseEntity<String> deleteAdvertisement(@PathVariable String id) {
-        long longId = Integer.parseInt(id);
-        advertisementService.deleteAdvertisement(longId);
+    public ResponseEntity<String> deleteAdvertisement(@PathVariable long id) {
+        advertisementService.deleteAdvertisement(id);
 
         return ResponseEntity.ok(String.format("Deletion of Advertisement '%s' was successful", id));
     }

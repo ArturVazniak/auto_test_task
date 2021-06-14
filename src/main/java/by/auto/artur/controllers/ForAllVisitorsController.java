@@ -9,12 +9,17 @@ import by.auto.artur.mapper.AdvertisementMapper;
 import by.auto.artur.mapper.UserMapper;
 import by.auto.artur.service.AdvertisementService;
 import by.auto.artur.service.UserService;
+import org.hibernate.annotations.ParamDef;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,71 +69,6 @@ public class ForAllVisitorsController {
         return new ResponseEntity<> (advertisementMapper.advertisementToDto(advertisement),HttpStatus.OK);
     }
 
-    //------------------------------- Pagination ---------------------------------------
-
-    @GetMapping("/advertisements/price/{pageNo}/{pageSize}")
-    public ResponseEntity<List<AdvertisementDto>> getAllPrice(@PathVariable int pageNo,
-                                           @PathVariable int pageSize) {
-
-        List<Advertisement> list= advertisementService.findAllByYear(pageNo,pageSize);
-
-        if(list == null){ // comparison with null because the method returns null if nothing was found
-            throw new NoSuchContentException("The page "+ pageNo+ " does not exist");
-        }
-        return new ResponseEntity<>(advertisementMapper.advertisementListToDto(list),HttpStatus.OK);
-    }
-
-    @GetMapping("/advertisements/model/{pageNo}/{pageSize}")
-    public ResponseEntity<List<AdvertisementDto>> findAllByCarModel(@PathVariable int pageNo,
-                                                 @PathVariable int pageSize) {
-
-        List<Advertisement> list = advertisementService.findAllByYear(pageNo, pageSize);
-
-        if (list == null) {
-            throw new NoSuchContentException("The page " + pageNo + " does not exist");
-        }
-        return new ResponseEntity<>(advertisementMapper.advertisementListToDto(list),HttpStatus.OK);
-    }
-
-    @GetMapping("/advertisements/year/{pageNo}/{pageSize}")
-    public ResponseEntity<List<AdvertisementDto>> findAllByYear(@PathVariable int pageNo,
-                                             @PathVariable int pageSize) {
-
-        List<Advertisement> list= advertisementService.findAllByYear(pageNo,pageSize);
-
-        if(list == null){
-            throw new NoSuchContentException("The page "+ pageNo +" does not exist");
-        }
-        return new ResponseEntity<>(advertisementMapper.advertisementListToDto(list),HttpStatus.OK);
-    }
-
-    //------------------------------- Filters ----------------------------------------------
-
-    @GetMapping("/filter/Year/{year}")
-    public ResponseEntity<List<AdvertisementDto>> getByYear(@PathVariable int year){
-
-        List<Advertisement> list = advertisementService.filterByYear(year);
-
-        if(list == null){ // comparison with null because the method returns null if nothing was found
-            throw new NoSuchContentException("No advertisement with year : "
-                    + year + " in database");
-        }
-        return new ResponseEntity<>(advertisementMapper.advertisementListToDto(list),HttpStatus.OK);
-    }
-
-    @GetMapping("/filter/Model/{model}")
-    public ResponseEntity<List<AdvertisementDto>> getByModel(@PathVariable String model){
-
-        List<Advertisement> list = advertisementService.filterByCarModel(model);
-
-        if(list == null){
-            throw new NoSuchContentException("No advertisement with model : "
-                    + model + " in database");
-        }
-        return new ResponseEntity<>(advertisementMapper.advertisementListToDto(list),HttpStatus.OK);
-    }
-    //------------------------------------------------------------------------------------------
-
     @PostMapping("/users")
     public ResponseEntity<User> registrationUser(@Valid @RequestBody UserDto userDto){
        User user = userService.saveUser(userMapper.DtoFromUser(userDto));
@@ -136,4 +76,59 @@ public class ForAllVisitorsController {
         return new ResponseEntity<>(userService.saveUser(userMapper.DtoFromUser(userDto)),HttpStatus.CREATED);
     }
 
+    @GetMapping("/advertisements/filter")
+    public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByPrice(@RequestParam(defaultValue = "2400.33") double price,
+                                                                               @RequestParam(required = false, defaultValue = "0") int page,
+                                                                               @RequestParam(required = false,defaultValue = "3") int size,
+                                                                               @RequestParam(required = false,defaultValue = "id") String field,
+                                                                               @RequestParam(required = false,defaultValue = "true") boolean sort){
+        Pageable paging= null;
+
+        if(sort == true){
+             paging = PageRequest.of(page, size, Sort.by(field).descending());
+        }else {
+            paging = PageRequest.of(page, size, Sort.by(field).ascending());
+        }
+
+         return new ResponseEntity<>(advertisementMapper.advertisementListToDto(
+                 advertisementService.findByPrice(price,paging)),HttpStatus.OK);
+    }
+
+    @GetMapping("/advertisements/filter/model")
+    public ResponseEntity<List<AdvertisementDto>> getAdvertisementSortCarModel(@RequestParam(defaultValue = "Mazda") String model,
+                                                                           @RequestParam(required = false, defaultValue = "0") int page,
+                                                                           @RequestParam(required = false,defaultValue = "3") int size,
+                                                                           @RequestParam(required = false,defaultValue = "id") String field,
+                                                                           @RequestParam(required = false,defaultValue = "true") boolean sort){
+        Pageable paging = null;
+
+        if(sort == true) {
+            paging = PageRequest.of(page, size, Sort.by(field).descending());
+        }else {
+            paging = PageRequest.of(page, size, Sort.by(field).ascending());
+        }
+
+        return new ResponseEntity<>(advertisementMapper.advertisementListToDto(
+                advertisementService.findByCarModel(model, paging)),HttpStatus.OK);
+    }
+
+    @GetMapping("/advertisements/filter/year")
+    public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByYear(@RequestParam(defaultValue = "Mazda") int year,
+                                                                          @RequestParam(required = false, defaultValue = "0") int page,
+                                                                          @RequestParam(required = false,defaultValue = "3") int size,
+                                                                          @RequestParam(required = false,defaultValue = "id") String field,
+                                                                          @RequestParam(required = false,defaultValue = "true") boolean sort) {
+        Pageable paging = null;
+
+        if(sort == true) {
+             paging = PageRequest.of(page, size, Sort.by(field).descending());
+        }else {
+            paging = PageRequest.of(page, size, Sort.by(field).ascending());
+        }
+
+        return new ResponseEntity<>(advertisementMapper.advertisementListToDto(
+                advertisementService.findByYear(year, paging)), HttpStatus.OK);
+    }
+
 }
+

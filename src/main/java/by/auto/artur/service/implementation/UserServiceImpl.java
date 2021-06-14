@@ -1,10 +1,12 @@
 package by.auto.artur.service.implementation;
 
+import by.auto.artur.entity.Advertisement;
 import by.auto.artur.entity.User;
 import by.auto.artur.repository.UserRepository;
 import by.auto.artur.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,4 +79,6 @@ public class UserServiceImpl implements UserService {
         log.info("IN findUserByUsername user {} found by username: {}", user, username);
         return user;
     }
+
+
 }

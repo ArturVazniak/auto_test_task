@@ -2,7 +2,10 @@ package by.auto.artur.repository;
 
 import by.auto.artur.entity.User;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  *
@@ -14,5 +17,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    public User findUserByUsername(String username);
+     User findUserByUsername(String username);
 }
