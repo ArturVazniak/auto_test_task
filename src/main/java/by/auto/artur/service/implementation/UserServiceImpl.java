@@ -1,4 +1,4 @@
-package by.auto.artur.service.implemintation;
+package by.auto.artur.service.implementation;
 
 import by.auto.artur.entity.User;
 import by.auto.artur.repository.UserRepository;
@@ -37,9 +37,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         log.info("IN saveUser user: {} successfully registered", user.getUsername());
         repository.save(user);
+        return user;
     }
 
     @Override

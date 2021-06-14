@@ -31,7 +31,7 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Size(min = 5, message = "\n" + "username must be at least 5 characters long")
+    @Size(min = 5, message = "username must be at least 5 characters long")
     @NotBlank(message = "Username is mandatory")
     @Column(name = "name")
     private String username;

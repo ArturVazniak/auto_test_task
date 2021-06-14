@@ -1,4 +1,4 @@
-package by.auto.artur.service.implemintation;
+package by.auto.artur.service.implementation;
 
 import by.auto.artur.entity.Advertisement;
 import by.auto.artur.repository.AdvertisementRepository;

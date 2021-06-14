@@ -18,4 +18,5 @@ public class AutoTestTaskApplication {
 
         SpringApplication.run(AutoTestTaskApplication.class, args);
     }
+
 }

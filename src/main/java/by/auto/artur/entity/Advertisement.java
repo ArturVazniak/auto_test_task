@@ -37,10 +37,11 @@ public class Advertisement {
     @Size(min = 5, message = "name of advertisement must be at least 5 characters long")
     @NotBlank(message = "Username is mandatory")
     @Column(name = "name_advertisement")
-    private String nameAdvertisement;
+    private String name;
 
     @Column(name = "text")
     private String text;
+
 
     @Column(name = "author_id")
     private long author;
@@ -58,9 +59,9 @@ public class Advertisement {
     private double price;
 
     @Column(name = "date")
-    private Date dateCreatedAdvertisement;
+    private Date creationDate;
 
     @Column(name = "deleted")
-    private boolean deleted = Boolean.FALSE;
+    private boolean deleted;
 
 }

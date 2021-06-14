@@ -19,26 +19,26 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<IncorreсtInfo> handleExceptionContent(NoSuchContentException exception){
-
         IncorreсtInfo incorreсtInfo = new IncorreсtInfo();
         incorreсtInfo.setInfo(exception.getMessage());
+
         return new ResponseEntity<>(incorreсtInfo, HttpStatus.NOT_FOUND);
     }
 
 
     @ExceptionHandler
     public ResponseEntity<IncorreсtInfo> handleException(Exception exception){
-
         IncorreсtInfo incorreсtInfo = new IncorreсtInfo();
         incorreсtInfo.setInfo(exception.getMessage());
+
         return new ResponseEntity<>(incorreсtInfo, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
     public ResponseEntity<IncorreсtInfo> handleValidationExceptions(MethodArgumentNotValidException exception){
-
         IncorreсtInfo incorreсtInfo = new IncorreсtInfo();
         incorreсtInfo.setInfo(exception.getMessage());
+
         return new ResponseEntity<>(incorreсtInfo, HttpStatus.BAD_REQUEST);
     }
 
