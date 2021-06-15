@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -30,10 +31,17 @@ public class ForAdminsController {
     private final UserMapper userMapper;
 
     @Autowired
-    public ForAdminsController(AdvertisementService advertisementService, UserService userService, UserMapper userMapper) {
+    public ForAdminsController(AdvertisementService advertisementService,
+                               UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.advertisementService = advertisementService;
         this.userMapper = userMapper;
+    }
+
+    @GetMapping("/hello")
+    public String hello (Principal principal){
+
+        return "Hello " + principal.getName();
     }
 
     @GetMapping("/users")

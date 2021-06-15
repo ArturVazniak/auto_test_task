@@ -13,6 +13,7 @@ import by.auto.artur.service.implementation.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -55,6 +56,7 @@ public class ForAuthenticatedUsersController {
         return "Hello " + principal.getName();
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or principal.userId == #id")
     @PostMapping("/advertisements")
     public ResponseEntity<String> addNewAdvertisement(@Valid @RequestBody Advertisement advertisement){
         advertisementService.saveAdvertisement(advertisement);
@@ -62,6 +64,7 @@ public class ForAuthenticatedUsersController {
         return ResponseEntity.ok(String.format("Advertisement '%s' is valid", advertisement.getName()));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or principal.userId == #id")
     @PutMapping("/advertisements")
     public ResponseEntity<AdvertisementDto> updateAdvertisement(@Valid @RequestBody Advertisement advertisement){
         advertisementService.saveAdvertisement(advertisement);
@@ -69,6 +72,7 @@ public class ForAuthenticatedUsersController {
         return new ResponseEntity<>(advertisementMapper.advertisementToDto(advertisement), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or principal.userId == #id")
     @DeleteMapping("/advertisements/{id}")
     public ResponseEntity<String> deleteAdvertisement(@PathVariable long id) {
         advertisementService.deleteAdvertisement(id);
@@ -76,6 +80,7 @@ public class ForAuthenticatedUsersController {
         return ResponseEntity.ok(String.format("Deletion of Advertisement '%s' was successful", id));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or principal.userId == #id")
     @PutMapping("/users")
     public UserDto updateUser(@Valid @RequestBody User user){
         userService.saveUser(user);
@@ -83,6 +88,7 @@ public class ForAuthenticatedUsersController {
         return userMapper.userToDto(user);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or principal.userId == #id")
     @DeleteMapping("/users/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable String id){
         long longId = Integer.parseInt(id);

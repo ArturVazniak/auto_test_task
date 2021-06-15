@@ -47,6 +47,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     private List<Advertisement> list;

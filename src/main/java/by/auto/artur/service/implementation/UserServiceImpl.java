@@ -1,15 +1,14 @@
 package by.auto.artur.service.implementation;
 
-import by.auto.artur.entity.Advertisement;
 import by.auto.artur.entity.User;
 import by.auto.artur.repository.UserRepository;
 import by.auto.artur.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -42,26 +41,27 @@ public class UserServiceImpl implements UserService {
     public User saveUser(User user) {
         log.info("IN saveUser user: {} successfully registered", user.getUsername());
         repository.save(user);
+
         return user;
     }
 
     @Override
     public User getUser(long id) {
-        User user = repository.findById(id).orElse(null);
+        Optional<User> user = repository.findById(id);
 
-        if(user == null){
+        if(user.isPresent()){
             log.warn("IN getUserById - no user found by id {} ", id);
             return null;
         }
         log.info("IN getUserById user: {} found by id: {}", user, id);
-        return user;
+        return user.get();
     }
 
     @Override
     public void deleteUser(long id) {
-       User user = repository.findById(id).orElse(null);
+       Optional<User> user = repository.findById(id);
 
-        if(user != null){
+        if(user.isPresent()){
             repository.deleteById(id);
             log.info("IN deleteUser user with id: {} successfully deleted", id);
         }

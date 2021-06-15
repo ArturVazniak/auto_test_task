@@ -9,17 +9,13 @@ import by.auto.artur.mapper.AdvertisementMapper;
 import by.auto.artur.mapper.UserMapper;
 import by.auto.artur.service.AdvertisementService;
 import by.auto.artur.service.UserService;
-import org.hibernate.annotations.ParamDef;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,8 +74,7 @@ public class ForAllVisitorsController {
 
     }
 
-        //---------------------------------------- Pagination + Filter ---------------------------------------------------------------------------------
-
+    //====================================== Pagination + Filters ====================================================================================
 
     @GetMapping("/advertisements/filter")
     public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByPrice(@RequestParam(defaultValue = "2400.33") double price,
@@ -134,6 +129,8 @@ public class ForAllVisitorsController {
         return new ResponseEntity<>(advertisementMapper.advertisementListToDto(
                 advertisementService.findByYear(year, paging)), HttpStatus.OK);
     }
+
+    //==============================================================================================================================================
 
 }
 

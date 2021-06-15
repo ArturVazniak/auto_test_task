@@ -1,6 +1,5 @@
 package by.auto.artur.service.implementation;
 
-
 import by.auto.artur.entity.Role;
 import by.auto.artur.entity.User;
 import by.auto.artur.repository.UserRepository;
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 
 import javax.transaction.Transactional;
 import java.util.Collection;
@@ -36,6 +34,7 @@ public class UserSecurityService implements UserDetailsService {
     }
 
     public User findByUserName(String username){
+
         return userRepository.findUserByUsername(username);
     }
 
@@ -54,7 +53,7 @@ public class UserSecurityService implements UserDetailsService {
         }
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
-        return userDetails;
 
+        return userDetails;
     }
 }

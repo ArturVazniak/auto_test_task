@@ -8,13 +8,11 @@ import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import java.awt.geom.AffineTransform;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -58,21 +56,21 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Advertisement getAdvertisement(long id) {
-        Advertisement advertisement = repository.findById(id).orElse(null);
+       Optional<Advertisement> advertisement = repository.findById(id);
 
-        if (advertisement == null) {
+        if (advertisement.isPresent()) {
             log.warn("IN getAdvertisement - no advertisement found by id {} ", id);
             return null;
         }
         log.info("IN getAdvertisement advertisement: {} found by id: {}", advertisement, id);
-        return advertisement;
+        return advertisement.get();
     }
 
     @Override
     public void deleteAdvertisement(long id) {
-        Advertisement advertisement = repository.findById(id).orElse(null);
+        Optional <Advertisement> advertisement = repository.findById(id);
 
-        if (advertisement != null) {
+        if (advertisement.isPresent()) {
             log.info("IN deleteAdvertisement advertisement with id: {} successfully deleted", id);
             repository.deleteById(id);
         }
@@ -114,69 +112,5 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.warn("IN findByPrice advertisements : {} not found", advertisements.size());
         return null;
     }
-
 }
- /*   @Override
-    public List<Advertisement> filterByYear(int year) {
-        List<Advertisement> list = repository.findAdvertisementByYear(year);
 
-        if (list.isEmpty()) {
-            log.warn("IN filterByYear advertisements with year: {} not found", year);
-            return null;
-        }
-        log.info("IN filterByYear advertisements with year: {} successfully found", year);
-        return list;
-    }
-*/
-
-  /*  @Override
-    public List<Advertisement> filterByCarModel(String model) {
-        List<Advertisement> list = repository.findAdvertisementByCarModel(model);
-
-        if (list.isEmpty()) {
-            log.warn("IN filterByCarModel advertisements with model of car: {} not found", model);
-            return null;
-        }
-        log.info("IN filterByCarModel advertisements with model of car: {} successfully found", model);
-        return list;
-
-    }
-*/
-
-   /* public List<Advertisement> findAdvertisementByPrice(int pageNo, int pageSize) {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("price").descending());
-        Page<Advertisement> pagedResult = repository.findAll(paging);
-
-        if(pagedResult.isEmpty()){
-            log.warn("IN findAdvertisementByPrice the page : {} does not exist", pageNo);
-            return null;
-        }
-        log.warn("IN findAdvertisementByPrice the page : {} exist", pageNo);
-        return pagedResult.toList();
-    }
-
-
-    public List<Advertisement> findAllByCarModel(int pageNo, int pageSize) {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("carModel").ascending());
-        Page<Advertisement> pagedResult = repository.findAll(paging);
-
-        if(pagedResult.isEmpty()){
-            log.warn("IN findAllByCarModel the page : {} does not exist", pageNo);
-            return null;
-        }
-        log.warn("IN findAllByCarModel the page : {} exist", pageNo);
-        return pagedResult.toList();
-    }
-
-
-    public List<Advertisement> findAllByYear(int pageNo, int pageSize) {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("year").descending());
-        Page<Advertisement> pagedResult = repository.findAll(paging);
-
-        if(pagedResult.isEmpty()){
-            log.warn("IN findAllByYear the page : {} does not exist", pageNo);
-            return null;
-        }
-        log.warn("IN findAllByYear the page : {} exist", pageNo);
-        return pagedResult.toList();
-    }*/

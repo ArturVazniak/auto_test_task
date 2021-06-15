@@ -1,12 +1,12 @@
 INSERT INTO roles (role_name)
         VALUES
-            ('ROLE_ADMIN'),
-            ('ROLE_USER');
+            ('ADMIN'),
+            ('USER');
 
-INSERT INTO users_auto (name, password, email)
+INSERT INTO users_auto (name, password, email, enabled)
         VALUES
-            ('Anton',  '$2y$12$uABVjiuAKNJhISeNqbVrZuFSO8xrBRi6rQgB9Eykda4511J/HyaFa',   'anton@mail.ru'),
-            ('Oleg',   '$2y$12$uABVjiuAKNJhISeNqbVrZuFSO8xrBRi6rQgB9Eykda4511J/HyaFa',   'Oleg@mail.ru');
+            ('Anton',  '$2y$12$uABVjiuAKNJhISeNqbVrZuFSO8xrBRi6rQgB9Eykda4511J/HyaFa',   'anton@mail.ru', true),
+            ('Oleg',   '$2y$12$uABVjiuAKNJhISeNqbVrZuFSO8xrBRi6rQgB9Eykda4511J/HyaFa',   'Oleg@mail.ru', true);
 
 
 
