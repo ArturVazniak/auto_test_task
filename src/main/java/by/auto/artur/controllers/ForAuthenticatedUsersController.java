@@ -90,14 +90,13 @@ public class ForAuthenticatedUsersController {
 
     @PreAuthorize("hasAuthority('ADMIN') or principal.userId == #id")
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable String id){
-        long longId = Integer.parseInt(id);
-        User user = userService.getUser(longId);
+    public ResponseEntity<String> deleteUser(@PathVariable long id){
+        User user = userService.getUser(id);
 
         if(user == null){
-            throw new NoSuchContentException("NO user with ID : " + longId + " in database");
+            throw new NoSuchContentException("NO user with ID : " + id + " in database");
         }
-        userService.deleteUser(longId);
+        userService.deleteUser(id);
         return ResponseEntity.ok(String.format("Deletion of user '%s' was successful", user.getUsername()));
     }
 

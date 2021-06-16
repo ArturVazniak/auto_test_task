@@ -17,5 +17,5 @@ public class UserDto {
     @Id
     private long id;
     private String username;
-    private String emailDto;
+
 }

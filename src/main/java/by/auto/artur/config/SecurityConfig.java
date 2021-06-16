@@ -52,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/api/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/api/guest/advertisements/all/true").hasAuthority("ADMIN") //  only admins see deleted advertisements
+                //  only admins see deleted advertisements
+                .antMatchers("/api/guest/advertisements/all/true").hasAuthority("ADMIN")
                 .antMatchers("/api/user/**").authenticated()
                 .antMatchers("/api/guest/advertisements/all/false").permitAll()
                 .antMatchers("/api/guest/**").permitAll()

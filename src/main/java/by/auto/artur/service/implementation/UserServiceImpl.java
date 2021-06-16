@@ -47,14 +47,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(long id) {
-        Optional<User> user = repository.findById(id);
+        User user = repository.findById(id).orElse(null);
 
-        if(user.isPresent()){
+        if(user == null){
             log.warn("IN getUserById - no user found by id {} ", id);
             return null;
         }
         log.info("IN getUserById user: {} found by id: {}", user, id);
-        return user.get();
+        return user;
     }
 
     @Override

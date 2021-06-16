@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *
- *
+ * Admins can see all information about users
  *
  *
  *@Author ArturVazniak
@@ -45,10 +45,10 @@ public class ForAdminsController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserDto>> allUsers(){
+    public ResponseEntity<List<User>> allUsers(){
 
-        return new ResponseEntity<>(userMapper.userListToDto(
-                userService.getAllUsers()), HttpStatus.OK);
+        return new ResponseEntity<>(
+                userService.getAllUsers(), HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")
@@ -63,25 +63,24 @@ public class ForAdminsController {
     }
 
     @GetMapping("/users/username/{name}")
-    public ResponseEntity<UserDto> ByUsername(@PathVariable String name){
+    public ResponseEntity<User> ByUsername(@PathVariable String name){
         User user = userService.findUserByUsername(name);
 
         if(user == null){
             throw new NoSuchContentException("NO user with Name : " + name + " in database");
         }
-        return new ResponseEntity<>(userMapper.userToDto(
-                userService.findUserByUsername(name)),HttpStatus.OK);
+        return new ResponseEntity<>(
+                userService.findUserByUsername(name),HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<UserDto> UserById(@PathVariable(name = "id") long id){
+    public ResponseEntity<User> UserById(@PathVariable(name = "id") long id){
         User user = userService.getUser(id);
 
         if(user == null){
             throw new NoSuchContentException("NO user with ID : " + id + " in database");
         }
-        return new ResponseEntity<>(userMapper.userToDto(
-                userService.getUser(id)), HttpStatus.OK);
+        return new ResponseEntity<>(
+                userService.getUser(id), HttpStatus.OK);
     }
-
 }

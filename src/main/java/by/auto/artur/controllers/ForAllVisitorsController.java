@@ -77,11 +77,12 @@ public class ForAllVisitorsController {
     //====================================== Pagination + Filters ====================================================================================
 
     @GetMapping("/advertisements/filter")
-    public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByPrice(@RequestParam(defaultValue = "2400.33") double price,
-                                                                               @RequestParam(required = false, defaultValue = "0") int page,
-                                                                               @RequestParam(required = false,defaultValue = "3") int size,
-                                                                               @RequestParam(required = false,defaultValue = "id") String filterField,
-                                                                               @RequestParam(required = false,defaultValue = "true") boolean sortField){
+    public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByPrice(
+                                               @RequestParam(defaultValue = "2400.33") double price,
+                                               @RequestParam(required = false, defaultValue = "0") int page,
+                                               @RequestParam(required = false,defaultValue = "3") int size,
+                                               @RequestParam(required = false,defaultValue = "id") String filterField,
+                                               @RequestParam(required = false,defaultValue = "true") boolean sortField){
         Pageable paging= null;
 
         if(sortField == true){
@@ -95,11 +96,12 @@ public class ForAllVisitorsController {
     }
 
     @GetMapping("/advertisements/filter/model")
-    public ResponseEntity<List<AdvertisementDto>> getAdvertisementSortCarModel(@RequestParam(defaultValue = "Mazda") String model,
-                                                                           @RequestParam(required = false, defaultValue = "0") int page,
-                                                                           @RequestParam(required = false,defaultValue = "3") int size,
-                                                                           @RequestParam(required = false,defaultValue = "id") String filterField,
-                                                                           @RequestParam(required = false,defaultValue = "true") boolean sortField){
+    public ResponseEntity<List<AdvertisementDto>> getAdvertisementSortCarModel(
+                                               @RequestParam(defaultValue = "Mazda") String model,
+                                               @RequestParam(required = false, defaultValue = "0") int page,
+                                               @RequestParam(required = false,defaultValue = "3") int size,
+                                               @RequestParam(required = false,defaultValue = "id") String filterField,
+                                               @RequestParam(required = false,defaultValue = "true") boolean sortField){
         Pageable paging = null;
 
         if(sortField == true) {
@@ -113,11 +115,12 @@ public class ForAllVisitorsController {
     }
 
     @GetMapping("/advertisements/filter/year")
-    public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByYear(@RequestParam(defaultValue = "Mazda") int year,
-                                                                          @RequestParam(required = false, defaultValue = "0") int page,
-                                                                          @RequestParam(required = false,defaultValue = "3") int size,
-                                                                          @RequestParam(required = false,defaultValue = "id") String filterField,
-                                                                          @RequestParam(required = false,defaultValue = "true") boolean sortField) {
+    public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByYear(
+                                              @RequestParam(defaultValue = "Mazda") int year,
+                                              @RequestParam(required = false, defaultValue = "0") int page,
+                                              @RequestParam(required = false,defaultValue = "3") int size,
+                                              @RequestParam(required = false,defaultValue = "id") String filterField,
+                                              @RequestParam(required = false,defaultValue = "true") boolean sortField) {
         Pageable paging = null;
 
         if(sortField == true) {
