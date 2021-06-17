@@ -25,7 +25,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(incorreсtInfo, HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler
     public ResponseEntity<IncorreсtInfo> handleException(Exception exception){
         IncorreсtInfo incorreсtInfo = new IncorreсtInfo();

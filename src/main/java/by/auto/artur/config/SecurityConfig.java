@@ -1,7 +1,9 @@
 package by.auto.artur.config;
 
 import by.auto.artur.service.implementation.UserSecurityService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
+import java.util.jar.JarEntry;
 
 /**
  *
@@ -24,23 +27,19 @@ import javax.sql.DataSource;
 
 @EnableWebSecurity //(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserSecurityService userSecurityService;
     private final DataSource dataSource;
 
     @Autowired
-    public SecurityConfig(UserSecurityService userSecurityService, DataSource dataSource) {
-        this.userSecurityService = userSecurityService;
-        this.dataSource = dataSource;
-    }
-
-    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT  name, password, "
+
+                .usersByUsernameQuery("SELECT name, password, "
                         + "enabled FROM users_auto WHERE name = ?")
                 .authoritiesByUsernameQuery("SELECT users_auto.name, roles.role_name  FROM users_auto "
                         + "INNER JOIN users_roles ON users_auto.id = users_roles.user_id "
@@ -53,12 +52,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/admin/**").hasAuthority("ADMIN")
                 //  only admins see deleted advertisements
-                .antMatchers("/api/guest/advertisements/all/true").hasAuthority("ADMIN")
-                .antMatchers("/api/user/**").authenticated()
+                .antMatchers("/api/admin/advertisements/all/true").hasAuthority("ADMIN")//
+                .antMatchers("/api/profile/**").authenticated()
                 .antMatchers("/api/guest/advertisements/all/false").permitAll()
                 .antMatchers("/api/guest/**").permitAll()
                 .and()
-                .formLogin().defaultSuccessUrl("/api/user/hello")
+                .csrf().disable()
+                .formLogin().defaultSuccessUrl("/swagger-ui/")
                 .and()
                 .logout().logoutSuccessUrl("/login");
     }

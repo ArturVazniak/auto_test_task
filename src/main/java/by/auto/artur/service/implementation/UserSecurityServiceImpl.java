@@ -25,10 +25,9 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class UserSecurityService implements UserDetailsService {
+public class UserSecurityServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
-
 
     public User findByUserName(String username){
 

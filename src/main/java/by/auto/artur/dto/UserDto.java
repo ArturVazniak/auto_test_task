@@ -1,7 +1,9 @@
 package by.auto.artur.dto;
 
+import by.auto.artur.entity.Role;
 import lombok.Data;
 import javax.persistence.Id;
+import java.util.Collection;
 
 /**
  *
@@ -16,6 +18,9 @@ public class UserDto {
 
     @Id
     private long id;
-    private String username;
+    private String usernameDto;
+    private String passwordDto;
+    private String email;
+    private Collection<Role> rolesDto;
 
 }

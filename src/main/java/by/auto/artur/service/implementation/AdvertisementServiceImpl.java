@@ -3,10 +3,10 @@ package by.auto.artur.service.implementation;
 import by.auto.artur.entity.Advertisement;
 import by.auto.artur.repository.AdvertisementRepository;
 import by.auto.artur.service.AdvertisementService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Filter;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +24,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class AdvertisementServiceImpl implements AdvertisementService {
 
     private final AdvertisementRepository repository;
     private final EntityManager entityManager;
-
-    @Autowired
-    public AdvertisementServiceImpl(AdvertisementRepository repository, EntityManager entityManager) {
-        this.repository = repository;
-        this.entityManager = entityManager;
-    }
 
     @Override
     public List<Advertisement> getAllAdvertisement(boolean isDeleted) {
@@ -56,14 +51,14 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Advertisement getAdvertisement(long id) {
-       Optional<Advertisement> advertisement = repository.findById(id);
+       Advertisement advertisement = repository.findById(id).orElse(null);
 
-        if (advertisement.isPresent()) {
+        if (advertisement == null) {
             log.warn("IN getAdvertisement - no advertisement found by id {} ", id);
             return null;
         }
         log.info("IN getAdvertisement advertisement: {} found by id: {}", advertisement, id);
-        return advertisement.get();
+        return advertisement;
     }
 
     @Override

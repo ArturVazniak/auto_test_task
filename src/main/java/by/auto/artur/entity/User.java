@@ -1,6 +1,5 @@
 package by.auto.artur.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,7 +23,6 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-
 @Table(name = "users_auto")
 public class User {
 

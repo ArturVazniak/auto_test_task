@@ -9,10 +9,11 @@ import by.auto.artur.mapper.AdvertisementMapper;
 import by.auto.artur.mapper.UserMapper;
 import by.auto.artur.service.AdvertisementService;
 import by.auto.artur.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/guest")
+@AllArgsConstructor
 public class ForAllVisitorsController {
 
     private final AdvertisementService advertisementService;
@@ -35,23 +37,11 @@ public class ForAllVisitorsController {
     private final UserMapper userMapper;
     private final AdvertisementMapper advertisementMapper;
 
-    @Autowired
-    public ForAllVisitorsController(AdvertisementService advertisementService,
-                                    UserService userService,
-                                    UserMapper userMapper,
-                                    AdvertisementMapper advertisementMapper) {
-
-        this.userService = userService;
-        this.advertisementService = advertisementService;
-        this.userMapper = userMapper;
-        this.advertisementMapper = advertisementMapper;
-    }
-
     @GetMapping("/advertisements/all/{isDeleted}")
     public ResponseEntity<List<AdvertisementDto>> allAdvertisements(@PathVariable boolean isDeleted){
 
         return new ResponseEntity<>(advertisementMapper.advertisementListToDto(
-                advertisementService.getAllAdvertisement(isDeleted)), HttpStatus.CREATED);
+                advertisementService.getAllAdvertisement(isDeleted)), HttpStatus.OK);
     }
 
     @GetMapping("/advertisements/{id}")
@@ -66,15 +56,12 @@ public class ForAllVisitorsController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> registrationUser(@Valid @RequestBody UserDto userDto) {
-        User user = userService.saveUser(userMapper.DtoFromUser(userDto));
+    public ResponseEntity<User> registerNewUserAccount(@Valid @RequestBody UserDto userDto) {
 
-        return new ResponseEntity<>(userService.saveUser(userMapper.DtoFromUser(userDto)), HttpStatus.CREATED);
-
-
+        return new ResponseEntity<>(userService.registerNewUserAccount(userDto), HttpStatus.CREATED);
     }
 
-    //====================================== Pagination + Filters ====================================================================================
+    //====================================== Pagination + Filters ======================================================
 
     @GetMapping("/advertisements/filter")
     public ResponseEntity<List<AdvertisementDto>> findAdvertisementSortByPrice(
@@ -133,7 +120,31 @@ public class ForAllVisitorsController {
                 advertisementService.findByYear(year, paging)), HttpStatus.OK);
     }
 
-    //==============================================================================================================================================
+    //========================================== Protected methods =====================================================
 
+    @PreAuthorize("hasAuthority('ADMIN') or #authUser.id == #userId")
+    @PostMapping("/advertisements")
+    public ResponseEntity<String> addNewAdvertisement(@Valid @RequestBody Advertisement advertisement){
+            advertisementService.saveAdvertisement(advertisement);
+            return ResponseEntity.ok(String.format("Advertisement '%s' is valid", advertisement.getName()));
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or #authUser.id == #userId")
+    @PutMapping("/advertisements/{id}")
+    public ResponseEntity<AdvertisementDto> updateAdvertisement(@Valid @RequestBody Advertisement advertisement,
+                                                                @PathVariable("id") long id){
+
+                advertisementService.saveAdvertisement(advertisement);
+                return new ResponseEntity<>(advertisementMapper.advertisementToDto(advertisement), HttpStatus.OK);
+
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or #authUser.id == #userId")
+    @DeleteMapping("/advertisements/{id}")
+    public ResponseEntity<String> deleteAdvertisement( @PathVariable("id") long id) {
+
+        advertisementService.deleteAdvertisement(id);
+        return ResponseEntity.ok(String.format("Deletion of Advertisement '%s' was successful", id));
+    }
 }
 

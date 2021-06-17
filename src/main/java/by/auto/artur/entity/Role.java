@@ -1,7 +1,6 @@
 package by.auto.artur.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 

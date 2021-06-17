@@ -1,14 +1,21 @@
 package by.auto.artur.service.implementation;
 
+import by.auto.artur.dto.UserDto;
+import by.auto.artur.entity.Role;
 import by.auto.artur.entity.User;
+import by.auto.artur.exceptions.NoSuchContentException;
 import by.auto.artur.repository.UserRepository;
 import by.auto.artur.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -20,14 +27,10 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
-
-    @Autowired
-    public UserServiceImpl(UserRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public List<User> getAllUsers() {
@@ -65,6 +68,7 @@ public class UserServiceImpl implements UserService {
             repository.deleteById(id);
             log.info("IN deleteUser user with id: {} successfully deleted", id);
         }
+
         log.warn("IN deleteUser - no user found by id {}", id);
     }
 
@@ -80,5 +84,27 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public User registerNewUserAccount(UserDto userDto) throws NoSuchContentException {
+        User user = findUserByUsername(userDto.getUsernameDto());
+
+        if (user != null) {
+            throw new NoSuchContentException("A user with such logins already exists: "
+                    + userDto.getUsernameDto());
+        }
+        user = new User();
+        user.setUsername(userDto.getUsernameDto());
+        user.setPassword(userDto.getPasswordDto());
+        user.setEmail(userDto.getEmail());
+        user.setRoles(userDto.getRolesDto());
+        user.setEnabled(true);
+
+        if(user == null) {
+            log.warn("IN registerNewUserAccount user {} not create. ", user.getUsername());
+        }
+
+        log.info("IN registerNewUserAccount user {} create. ", user.getUsername());
+        return repository.save(user);
+    }
 
 }

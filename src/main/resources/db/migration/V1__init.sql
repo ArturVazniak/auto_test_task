@@ -1,6 +1,6 @@
 CREATE TABLE roles
 (
-    id                  SERIAL               PRIMARY KEY,
+    id                  SERIAL                  PRIMARY KEY,
     role_name           VARCHAR(20)             NOT NULL
 );
 
@@ -11,6 +11,8 @@ CREATE TABLE users_auto
     password            VARCHAR(255)            NOT NULL,
     email               VARCHAR(50)             NOT NULL                 UNIQUE,
     enabled             BOOLEAN                 NOT NULL                 DEFAULT FALSE
+
+
 );
 
 CREATE TABLE advertisements
@@ -25,7 +27,7 @@ CREATE TABLE advertisements
     deleted             BOOLEAN                 NOT NULL                 DEFAULT FALSE,
     date                DATE                    DEFAULT                  CURRENT_DATE,
 
-    FOREIGN KEY(author_id) REFERENCES users_auto(id)
+    FOREIGN KEY(author_id) REFERENCES users_auto(id) ON DELETE CASCADE
 );
 
 CREATE TABLE users_roles
@@ -35,6 +37,6 @@ CREATE TABLE users_roles
 
     PRIMARY KEY(user_id, role_id),
 
-    FOREIGN KEY(user_id) REFERENCES users_auto(id),
-    FOREIGN KEY(role_id) REFERENCES roles(id)
+    FOREIGN KEY(user_id) REFERENCES users_auto(id) ON DELETE CASCADE,
+    FOREIGN KEY(role_id) REFERENCES roles(id) ON DELETE CASCADE
 );
