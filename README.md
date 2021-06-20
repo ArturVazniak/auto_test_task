@@ -1,7 +1,7 @@
 # Car sales website RESTfull service.
 ## An example of selling cars has been implemented. Example: https://www.abw.by/
 ---
-Technologies:
+#### Technologies:
 1. Java 11
 2. Spring Boot
 3. Spring MVC(REST)
@@ -11,16 +11,15 @@ Technologies:
 7. PostgreSQL
 8. Flyway
 9. Maven
+10. Mockito framework
 ---
 - Architecture - 3 levels with division into layers
 - Authorization and 2 types of users: administrator
 and a simple user. Admin sees all ads and everyone
 users
 - Pattern DTO
+- Unit tests for services are written
 ---
-
-
-
 ## Pages:
 1. List of cars available for purchase
 2. It is necessary to have filtering by criteria, sorting, page-by-page
@@ -34,8 +33,10 @@ users
  and all not deleted are pulled to the client
 9. Initial data is specified as migrations
 Flyway.
+---
+### 
+To enter the application:
 
+As an administrator: Enter login: Anton (password 100) or Maxim (password 200)
 
-To enter the application as an administrator: login: Anton (password 100) or Maxim (password 200)
-
-To enter the application as user: login: Oleg (password 100) or Denis (password 200)
+As user: Enter login: Oleg (password 100) or Denis (password 200)
