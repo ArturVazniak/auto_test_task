@@ -16,11 +16,12 @@ Technologies:
 - Authorization and 2 types of users: administrator
 and a simple user. Admin sees all ads and everyone
 users
+- Pattern DTO
 ---
 
 
 
-Pages:
+##Pages:
 1. List of cars available for purchase
 2. It is necessary to have filtering by criteria, sorting, page-by-page
  view (Pagination)
