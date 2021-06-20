@@ -1,11 +1,17 @@
 # Car sales website RESTfull service.
 ## An example of selling cars has been implemented. Example: https://www.abw.by/
 ---
-
-
-
-
-
+Technologies:
+>Java 11
+>Spring Boot
+>Spring MVC(REST)
+>Swagger
+>Spring Data\Spring JDBC
+>Spring Security
+>PostgreSQL
+>Flyway
+>Maven
+---
 
 
 
