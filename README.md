@@ -1,17 +1,17 @@
 # Car sales website RESTfull service.
-## An example of selling cars has been implemented. Example: [abw.by]: https://www.abw.by/
-####Pages:
-*List of cars available for purchase
-*It is necessary to have filtering by criteria, sorting, page-by-page
+## An example of selling cars has been implemented. Example: https://www.abw.by/
+###Pages:
+1. List of cars available for purchase
+2. It is necessary to have filtering by criteria, sorting, page-by-page
  view (Pagination)
- *Server-side pagination
- *Detailed view of the sale ad
- *Adding / editing a sale advertisement
- *Availability of validation of input data
- *The api response contains information why the request is not valid
- *Deleting objects is done through "soft delete"
+3. Server-side pagination
+4. Detailed view of the sale ad
+5. Adding / editing a sale advertisement
+6. Availability of validation of input data
+7. The api response contains information why the request is not valid
+8. Deleting objects is done through "soft delete"
  and all not deleted are pulled to the client
- *Initial data is specified as migrations
+9. Initial data is specified as migrations
 Flyway.
 
 
