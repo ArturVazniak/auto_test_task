@@ -21,7 +21,7 @@ users
 
 
 
-##Pages:
+## Pages:
 1. List of cars available for purchase
 2. It is necessary to have filtering by criteria, sorting, page-by-page
  view (Pagination)
