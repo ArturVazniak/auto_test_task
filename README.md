@@ -33,6 +33,7 @@ users
  and all not deleted are pulled to the client
 9. Initial data is specified as migrations
 Flyway.
+10. User can edit only their own ads and edit only their profile
 ---
 ### To enter the application:
 
