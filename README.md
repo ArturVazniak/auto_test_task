@@ -12,6 +12,7 @@
 8. Flyway
 9. Maven
 10. Mockito framework
+11. Hibernate ORM
 ---
 - Architecture - 3 levels with division into layers
 - Authorization and 2 types of users: administrator
@@ -19,6 +20,7 @@ and a simple user. Admin sees all ads and everyone
 users
 - Pattern DTO
 - Unit tests for services are written
+- Following SOLID principles
 ---
 ### Pages:
 1. List of cars available for purchase
