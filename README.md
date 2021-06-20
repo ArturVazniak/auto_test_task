@@ -2,15 +2,15 @@
 ## An example of selling cars has been implemented. Example: https://www.abw.by/
 ---
 Technologies:
->Java 11
->Spring Boot
->Spring MVC(REST)
->Swagger
->Spring Data\Spring JDBC
->Spring Security
->PostgreSQL
->Flyway
->Maven
+1. Java 11
+2. Spring Boot
+3. Spring MVC(REST)
+4. Swagger
+5. Spring Data\Spring JDBC
+6. Spring Security
+7. PostgreSQL
+8. Flyway
+9. Maven
 ---
 
 
