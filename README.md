@@ -1,6 +1,17 @@
 # Car sales website RESTfull service.
 ## An example of selling cars has been implemented. Example: https://www.abw.by/
-###Pages:
+---
+
+
+
+
+
+
+
+
+
+
+Pages:
 1. List of cars available for purchase
 2. It is necessary to have filtering by criteria, sorting, page-by-page
  view (Pagination)
