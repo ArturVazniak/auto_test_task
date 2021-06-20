@@ -12,8 +12,11 @@ Technologies:
 8. Flyway
 9. Maven
 ---
-
-
+- Architecture - 3 levels with division into layers
+- Authorization and 2 types of users: administrator
+and a simple user. Admin sees all ads and everyone
+users
+---
 
 
 
