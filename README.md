@@ -1,7 +1,7 @@
 # Car sales website RESTfull service.
 ## An example of selling cars has been implemented. Example: https://www.abw.by/
 ---
-#### Technologies:
+### Technologies:
 1. Java 11
 2. Spring Boot
 3. Spring MVC (REST)
@@ -20,7 +20,7 @@ users
 - Pattern DTO
 - Unit tests for services are written
 ---
-## Pages:
+### Pages:
 1. List of cars available for purchase
 2. It is necessary to have filtering by criteria, sorting, page-by-page
  view (Pagination)
