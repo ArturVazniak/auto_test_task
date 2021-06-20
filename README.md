@@ -4,7 +4,7 @@
 #### Technologies:
 1. Java 11
 2. Spring Boot
-3. Spring MVC(REST)
+3. Spring MVC (REST)
 4. Swagger
 5. Spring Data\Spring JDBC
 6. Spring Security
