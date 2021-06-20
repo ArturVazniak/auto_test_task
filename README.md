@@ -34,9 +34,8 @@ users
 9. Initial data is specified as migrations
 Flyway.
 ---
-### 
-To enter the application:
+### To enter the application:
 
-As an administrator: Enter login: Anton (password 100) or Maxim (password 200)
+- As an administrator: Enter login: Anton (password 100) or Maxim (password 200)
 
-As user: Enter login: Oleg (password 100) or Denis (password 200)
+- As user: Enter login: Oleg (password 100) or Denis (password 200)
