@@ -1,16 +1,12 @@
 package by.auto.artur.controllers;
 
-import by.auto.artur.dto.AdvertisementDto;
-import by.auto.artur.dto.UserDto;
 import by.auto.artur.entity.Advertisement;
 import by.auto.artur.entity.User;
 import by.auto.artur.exceptions.NoSuchContentException;
-import by.auto.artur.mapper.AdvertisementMapper;
 import by.auto.artur.mapper.UserMapper;
 import by.auto.artur.service.AdvertisementService;
 import by.auto.artur.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

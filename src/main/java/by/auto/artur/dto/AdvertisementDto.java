@@ -17,7 +17,6 @@ import java.util.Date;
 @Data
 public class AdvertisementDto {
 
-    @Id
     private long id;
     private String name;
     private String text;

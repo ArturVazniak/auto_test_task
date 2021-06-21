@@ -22,8 +22,16 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ *
+ *
+ *
+ *
+ *@Author ArturVazniak
+ */
+
 @RunWith(MockitoJUnitRunner.class)
-public class ApplicationMockitoTests {
+public class UserServiceImplTest {
 
     @Mock
     private UserRepository userRepository;

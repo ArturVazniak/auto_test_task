@@ -16,11 +16,10 @@ import java.util.Collection;
 @Data
 public class UserDto {
 
-    @Id
     private long id;
-    private String usernameDto;
-    private String passwordDto;
+    private String username;
+    private String password;
     private String email;
-    private Collection<Role> rolesDto;
+    private Collection<Role> roles;
 
 }

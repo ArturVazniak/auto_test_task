@@ -21,15 +21,15 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Mapping(source = "user.email", target = "email", defaultValue = "email")
+    @Mapping(source = "user.email", target = "email")
     UserDto userToDto(User user);
 
-    @Mapping(source = "user.email", target = "email", defaultValue = "email")
+    @Mapping(source = "user.email", target = "email")
     List<UserDto> userListToDto(List<User> user);
 
-    @Mapping(source = "userDto.email", target = "email", defaultValue = "email")
-    @Mapping(source = "userDto.passwordDto", target = "password", defaultValue = "password")
-    @Mapping(source = "userDto.rolesDto", target = "roles")
+    @Mapping(source = "userDto.email", target = "email")
+    @Mapping(source = "userDto.password", target = "password")
+    @Mapping(source = "userDto.roles", target = "roles")
     User DtoFromUser(UserDto userDto);
 
 }

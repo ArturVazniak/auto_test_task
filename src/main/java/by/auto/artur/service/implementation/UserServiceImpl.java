@@ -1,21 +1,16 @@
 package by.auto.artur.service.implementation;
 
 import by.auto.artur.dto.UserDto;
-import by.auto.artur.entity.Role;
 import by.auto.artur.entity.User;
 import by.auto.artur.exceptions.NoSuchContentException;
 import by.auto.artur.repository.UserRepository;
 import by.auto.artur.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -86,17 +81,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerNewUserAccount(UserDto userDto) throws NoSuchContentException {
-        User user = findUserByUsername(userDto.getUsernameDto());
+        User user = findUserByUsername(userDto.getUsername());
 
         if (user != null) {
             throw new NoSuchContentException("A user with such logins already exists: "
-                    + userDto.getUsernameDto());
+                    + userDto.getUsername());
         }
         user = new User();
-        user.setUsername(userDto.getUsernameDto());
-        user.setPassword(userDto.getPasswordDto());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
         user.setEmail(userDto.getEmail());
-        user.setRoles(userDto.getRolesDto());
+        user.setRoles(userDto.getRoles());
         user.setEnabled(true);
 
         if(user == null) {
