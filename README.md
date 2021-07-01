@@ -1,4 +1,4 @@
-# Car sales website RESTfull service.
+# Car sales RESTfull service.
 ## An example of selling cars has been implemented. Example: https://www.abw.by/
 ---
 ### Technologies:
