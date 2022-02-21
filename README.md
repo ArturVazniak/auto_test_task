@@ -42,6 +42,3 @@ Flyway.
 - As an administrator: Enter login: Anton (password 100) or Maxim (password 200)
 
 - As user: Enter login: Oleg (password 100) or Denis (password 200)
-
-
-=========================================================================================
